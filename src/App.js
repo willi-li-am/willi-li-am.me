@@ -5,21 +5,53 @@ import Draggable from 'react-draggable';
 import backgroundPicture from "./assets/pictures/background.jpg"
 import HomePage from './components/Introduction/homePage';
 import WindowFrame from './components/Windows/windowFrame';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [zIndexWindows, setZIndexWindows] = useState([])
+  const [zIndexFolders, setZIndexFolders] = useState([])
+  const [folderChange, setFolderChange] = useState(false)
+  const [windowChange, setWindowChange] = useState(false)
+
+  const indexSelect = (stateArr, title, setFunction) => {
+    let arr = stateArr
+
+    const index = arr.indexOf(title);
+
+    if (index !== -1) {
+      arr.splice(index, 1);
+      arr.push(title);
+    }
+    else {
+      arr.push(title)
+    }
+
+    setFunction(arr)
+  }
+
+  const folderSelect = (title) => {
+    indexSelect(zIndexFolders, title, setZIndexFolders)
+    setFolderChange(!folderChange)
+  }
+
+  const windowSelect = (title) => {
+    indexSelect(zIndexWindows, title, setZIndexWindows)
+    setWindowChange(!windowChange)
+  }
+
   return (
     <div style = {{height: "100vh"}} className = "select-none">
       <img src = {backgroundPicture} className='fixed object-cover pointer-events-none select-none' style={{zIndex: -1, width: "100vw", height: "100vh"}}></img>
-      <Navbar/>
+      <Navbar folderChange = {folderChange} folderSelect = {folderSelect} zIndexFolders = {zIndexFolders}/>
       <div className='p-2'></div>
       <div className='p-2 mt-2 ml-10 select-text'><HomePage/></div>
-      <WindowFrame height = "200px" width = "500px" title = "example.exe">
+      <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect} height = "200px" width = "500px" title = "Skills">
         <div>Hello</div>
       </WindowFrame>
-      <WindowFrame height = "200px" width = "500px" title = "example.exe">
+      <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Projects">
         <div>Hello</div>
       </WindowFrame>
-      <WindowFrame height = "200px" width = "500px" title = "example.exe">
+      <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Example.exe">
         <div>Hello</div>
       </WindowFrame>
     </div>

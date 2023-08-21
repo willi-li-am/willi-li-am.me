@@ -6,6 +6,8 @@ import backgroundPicture from "./assets/pictures/background.jpg"
 import HomePage from './components/Introduction/homePage';
 import WindowFrame from './components/Windows/windowFrame';
 import { useEffect, useState } from 'react';
+import { Rnd } from 'react-rnd';
+import AboutMe from './components/windowChildren/AboutMe';
 
 function App() {
   const [zIndexWindows, setZIndexWindows] = useState([])
@@ -41,14 +43,12 @@ function App() {
 
   return (
     <div style = {{height: "100vh"}} className = "select-none">
-      <img src = {backgroundPicture} className='fixed object-cover pointer-events-none select-none' style={{zIndex: -1, width: "100vw", height: "100vh"}}></img>
+      <img loading='lazy' src = {backgroundPicture} className='fixed object-cover pointer-events-none select-none' style={{zIndex: -1, width: "100vw", height: "100vh"}}></img>
       <Navbar folderChange = {folderChange} folderSelect = {folderSelect} zIndexFolders = {zIndexFolders}/>
-      <div className='p-2'></div>
-      <div className='p-2 mt-2 ml-10 select-text'><HomePage/></div>
-      <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect} height = "200px" width = "500px" title = "Skills">
-        <div>Hello</div>
+      <WindowFrame position = {{x: 100, y: 20}} windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect} height = "330px" width = "600px" title = "About Me">
+        <AboutMe></AboutMe>
       </WindowFrame>
-      <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Projects">
+      <WindowFrame position = {{x: 800, y: 500}} windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Projects">
         <div>Hello</div>
       </WindowFrame>
       <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Example.exe">

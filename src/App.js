@@ -15,6 +15,25 @@ function App() {
   const [folderChange, setFolderChange] = useState(false)
   const [windowChange, setWindowChange] = useState(false)
 
+  const [mousePos, setMousePos] = useState({});
+
+  const windowSize = [window.innerWidth, window.innerHeight]
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setMousePos({ x: event.clientX, y: event.clientY });
+    };
+
+    setInterval(()=>{window.addEventListener('mousemove', handleMouseMove)}, 1000)
+
+    return () => {
+      window.removeEventListener(
+        'mousemove',
+        handleMouseMove
+      );
+    };
+  }, []);
+
   const indexSelect = (stateArr, title, setFunction) => {
     let arr = stateArr
 
@@ -43,16 +62,13 @@ function App() {
 
   return (
     <div style = {{height: "100vh"}} className = "select-none">
-      <img loading='lazy' src = {backgroundPicture} className='fixed object-cover pointer-events-none select-none' style={{zIndex: -1, width: "100vw", height: "100vh"}}></img>
+      <div className='fixed object-cover pointer-events-none select-none duration-1000' style={{zIndex: -1, width: "100vw", height: "100vh", backgroundImage: "url(" + backgroundPicture+")", backgroundSize: "120vw 120vh", backgroundPositionX: (mousePos["x"] * 20/windowSize[0]) + "%", backgroundPositionY: (mousePos["y"] * 20/windowSize[1])+"%", transitionTimingFunction: "cubic-bezier(0,.25,.6,1)"}}></div>
       <Navbar folderChange = {folderChange} folderSelect = {folderSelect} zIndexFolders = {zIndexFolders}/>
       <WindowFrame position = {{x: 100, y: 20}} windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect} height = "330px" width = "600px" title = "About Me">
         <AboutMe></AboutMe>
       </WindowFrame>
-      <WindowFrame position = {{x: 800, y: 500}} windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Projects">
-        <div>Hello</div>
-      </WindowFrame>
       <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Example.exe">
-        <div>Hello</div>
+
       </WindowFrame>
     </div>
   );

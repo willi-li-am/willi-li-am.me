@@ -8,6 +8,7 @@ import WindowFrame from './components/Windows/windowFrame';
 import { useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import AboutMe from './components/windowChildren/AboutMe';
+import Skills from './components/windowChildren/Skills';
 
 function App() {
   const [zIndexWindows, setZIndexWindows] = useState([])
@@ -61,16 +62,17 @@ function App() {
   }
 
   return (
-    <div style = {{height: "100vh"}} className = "select-none">
+    <body style = {{height: "2000px"}} className = "select-none">
       <div className='fixed object-cover pointer-events-none select-none duration-1000' style={{zIndex: -1, width: "100vw", height: "100vh", backgroundImage: "url(" + backgroundPicture+")", backgroundSize: "120vw 120vh", backgroundPositionX: (mousePos["x"] * 20/windowSize[0]) + "%", backgroundPositionY: (mousePos["y"] * 20/windowSize[1])+"%", transitionTimingFunction: "cubic-bezier(0,.25,.6,1)"}}></div>
       <Navbar folderChange = {folderChange} folderSelect = {folderSelect} zIndexFolders = {zIndexFolders}/>
+      
+      <WindowFrame position = {{x: 800, y: 1200}} windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "430px" width = "570px" title = "Skills">
+        <Skills folderChange = {folderChange} folderSelect = {folderSelect} zIndexFolders = {zIndexFolders}></Skills>
+      </WindowFrame>
       <WindowFrame position = {{x: 100, y: 20}} windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect} height = "330px" width = "600px" title = "About Me">
         <AboutMe></AboutMe>
       </WindowFrame>
-      <WindowFrame windowChange = {windowChange} zIndexWindows = {zIndexWindows} windowSelect = {windowSelect}  height = "200px" width = "500px" title = "Example.exe">
-
-      </WindowFrame>
-    </div>
+    </body>
   );
 }
 

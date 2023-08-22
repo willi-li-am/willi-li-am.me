@@ -30,11 +30,11 @@ export default function WindowFrame(props) {
 
     return(
 
-        <Draggable defaultPosition = {props.position} id = {props.title} handle="#topWindow" bounds = "body" onStart={() => {setClicked(true); props.windowSelect(props.title)}}>
-            <div ref={windowRef} onClick={() => {setClicked(true); props.windowSelect(props.title)}} className="absolute flex flex-col select-text" style={{zIndex: index, width: props.width, height: props.height, boxShadow: "2px 2px 5px black", borderWidth: "2px"}}>
+        <Draggable ref = {props.ref} defaultPosition = {props.position} handle="#topWindow" bounds = "body" onStart={() => {setClicked(true); props.windowSelect(props.title)}}>
+            <div ref={windowRef} onClick={() => {setClicked(true); props.windowSelect(props.title)}} id = {props.title} className="absolute flex flex-col select-text" style={{zIndex: index, width: props.width, height: props.height, boxShadow: "2px 2px 5px black", borderWidth: "2px"}}>
                 
                 <WindowTop width = {props.width} clicked = {clicked} title = {props.title}></WindowTop>
-                <div className="bg-white overflow-auto" style={{padding: "20px", height: "calc(" + props.height + " - 30px)"}}>
+                <div className="bg-white overflow-auto windowInside" style={{padding: "20px", height: "calc(" + props.height + " - 30px)"}}>
                     {props.children}
                 </div>
             </div>
